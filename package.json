@@ -1,0 +1,19 @@
+{
+  "name": "testing",
+  "version": "0.0.1",
+  "description": "initial test",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderb0b/node_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coderb0b/node_project/issues"
+  },
+  "homepage": "https://github.com/coderb0b/node_project#readme"
+}
