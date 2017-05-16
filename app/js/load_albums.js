@@ -110,6 +110,22 @@ function get_list_albums(req, res) {
 
 }
 
+function get_album(req, res) {
+	// /albums/album_name.json
+	var album_name = req.url.substr(7, req.url.length - 12);
+	load_album(album_name,
+				function (err, album_contents) {
+					if (err && err.error == "no_such_album") {
+						send_failure(res, 404, err);						
+					} else if (err) {
+						send_failure(res, 500, err);						
+					} else {
+						send_success(res, { album_data: album_contents });
+					}
+				}
+	);
+}
+
 function make_error(err, msg) {
 	var e = new Error(msg);
 	e.code = err;
@@ -123,7 +139,7 @@ function send_success(res, data) {
 }
 
 function send_failure(res, code, err) {
-	var code = (err.code) ? err.code : err.name;
+	var code = code;
 	res.writeHead(code, { "Content-Type" : "application/json" });
 	res.end(JSON.stringify({ error: code, message: err.message }) + "\n");
 }
