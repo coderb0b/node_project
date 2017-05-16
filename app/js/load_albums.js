@@ -40,7 +40,7 @@ function list_albums(callback) {
 function load_album(album_name, callback) {
 	fs.readdir(
 		"albums/" + album_name,
-		function(err, files) {
+		function (err, files) {
 			if (err) {
 				if (err.code == "ENOENT") {
 					callback(no_such_album());
@@ -51,13 +51,13 @@ function load_album(album_name, callback) {
 				return;
 			}
 
-			var files = [];
+			var pictures = [];
 			var path = "albums/" + album_name + "/";
 
 			(function iterator(index) {
 				if (index == files.length) {
 					var obj = { short_name: album_name,
-								photos: files };
+								photos: pictures };
 					callback(null, obj);
 					return;
 				}
@@ -74,7 +74,7 @@ function load_album(album_name, callback) {
 			       		if (stats.isFile()) {
 			       			var obj = { filename: files[index],
 			       						desc: files[index] };
-			       			files.push(obj);
+			       			pictures.push(obj);
 			       		}
 			       		iterator(index + 1)
 			       	}
@@ -92,7 +92,7 @@ function process_request(req, res) {
 		get_list_albums(req, res);		
 	} else if (req.url.substr(0, 7) == '/albums'
 				&& req.url.substr(req.url.length - 5) == '.json') {
-
+		get_album(req, res);
 	} else {
 		send_failure(res, 404, invalid_resource());
 	}
