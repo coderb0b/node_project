@@ -100,7 +100,10 @@ function process_request(req, res) {
 	console.log(req.parsed_url);
 
 	if (core_url == '/albums.json') {
-		get_list_albums(req, res);		
+		get_list_albums(req, res);
+	} else if (core_url.substr(core_url.length - 12) == '/rename.json'
+				&& req.method.toLowerCase() == 'post') {
+		rename_album(req, res);
 	} else if (core_url.substr(0, 7) == '/albums'
 				&& core_url.substr(core_url.length - 5) == '.json') {
 		get_album(req, res);
